@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thepastelist.com/sitemap.xml
+Sitemap: https://thepastelist-website.info-thepastelist.workers.dev/sitemap.xml
