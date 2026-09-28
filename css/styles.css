@@ -418,6 +418,37 @@ section[id], main, #top { scroll-margin-top: calc(var(--header-h) + 8px); }
   .hero-visual { margin-right: 0; }
 }
 
+/* ----------------------------- Ribbon ----------------------------------- */
+.ribbon {
+  overflow: hidden;
+  padding: 16px 0;
+  background: var(--violet);
+  color: #fff;
+}
+.ribbon-track {
+  display: flex;
+  width: max-content;
+  animation: ribbon 92s linear infinite;   /* ~45px a second */
+}
+.ribbon:hover .ribbon-track { animation-play-state: paused; }
+.ribbon-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  padding-right: 30px;
+  font: 500 0.9rem/1 var(--font-body);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ribbon-track span::after {
+  content: "";
+  width: 9px; height: 9px;
+  border: 2px solid var(--lavender);
+  border-radius: 50%;
+}
+@keyframes ribbon { to { transform: translateX(-50%); } }
+
 /* ---------------------------- Sections ---------------------------------- */
 .section { padding: var(--section-y) 0; }
 .section-tint { background: var(--pastel-50); }
@@ -1136,11 +1167,20 @@ section[id], main, #top { scroll-margin-top: calc(var(--header-h) + 8px); }
     transition-duration: 0.01ms !important;
   }
   .reveal-ready [data-reveal] { opacity: 1; transform: none; }
+  /* ribbon stops moving: a still, centred list on wide screens… */
+  .ribbon-track { flex-wrap: wrap; justify-content: center; row-gap: 12px; width: auto; padding-inline: var(--gutter); animation: none; }
+  .ribbon-track span:nth-child(n + 11) { display: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 899px) {
+  /* …and a single still line you can swipe on phones and tablets */
+  .ribbon { overflow-x: auto; scrollbar-width: none; }
+  .ribbon::-webkit-scrollbar { display: none; }
+  .ribbon-track { flex-wrap: nowrap; justify-content: flex-start; width: max-content; }
 }
 
 /* ------------------------------- Print ---------------------------------- */
 @media print {
-  .site-header, .wa-float, .wa-bar, .seeds, .hero-actions, .form-card, .lightbox, .final-actions { display: none !important; }
+  .site-header, .wa-float, .wa-bar, .seeds, .ribbon, .hero-actions, .form-card, .lightbox, .final-actions { display: none !important; }
   body { padding: 0; }
   .section { padding: 24px 0; }
 }
